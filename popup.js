@@ -1,26 +1,45 @@
+const getTab = async () => {
+    let [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+    });
+    return tab.id;
+};
+
 // When the button is clicked, inject startRecording into current page
-document.getElementById("record").addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+document.getElementById("record").addEventListener("mousedown", async () => {
     chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: startRecording,
+        target: { tabId: await getTab() },
+        function: setRecording(true),
     });
 });
 
-document.getElementById("stop-record").addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: stopRecording,
+document
+    .getElementById("stop-record")
+    .addEventListener("mousedown", async () => {
+        chrome.scripting.executeScript({
+            target: { tabId: await getTab() },
+            function: setRecording(false),
+        });
     });
-});
+
+document
+    .getElementById("commit-code")
+    .addEventListener("mousedown", async () => {
+        chrome.scripting.executeScript({
+            target: { tabId: await getTab() },
+            function: commitCode,
+        });
+    });
 
 // The body of this function will be executed as a content script inside the
 // current page
-function startRecording() {
-    chrome.storage.sync.set({ recording: true });
+function setRecording(bool) {
+    chrome.storage.sync.set({ recording: bool });
 }
 
-function stopRecording() {
-    chrome.storage.sync.set({ recording: false });
+function commitCode() {
+    chrome.storage.sync.get(["recording"], function (result) {
+        console.log("COMMIT", result);
+    });
 }
