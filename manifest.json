@@ -1,0 +1,35 @@
+{
+    "name": "Elucidat Cucumber builder",
+    "description": "Grab xpaths and make them directly in to tests!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage", "activeTab", "scripting"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/tab-icon.png",
+            "24": "images/tab-icon.png",
+            "32": "images/tab-icon.png",
+            "128": "images/tab-icon.png"
+        }
+    },
+    "icons": {
+        "16": "images/tab-icon.png",
+        "32": "images/tab-icon.png",
+        "48": "images/tab-icon.png",
+        "128": "images/tab-icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://app.elucidat.com/*",
+                "https://preview.elucidat.com/*"
+            ],
+            "css": ["styles.css"],
+            "js": ["content.js"]
+        }
+    ]
+}

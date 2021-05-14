@@ -1,0 +1,90 @@
+#extension_popup button {
+    text-align: center;
+    background: #f89406;
+    border-radius: 4px;
+    font-size: 18px;
+    height: 49px;
+    line-height: 21.6px;
+    margin: 8px;
+    padding-bottom: 12px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 12px;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    border: none;
+}
+
+/*Extension Popup*/
+
+body#extension_popup {
+    width: 250px;
+    margin: 0;
+}
+
+#extension_popup {
+    text-align: center;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    background-image: url("images/cover_bg.jpg");
+    background-size: cover;
+    padding: 5px;
+}
+
+#extension_popup button:hover {
+    background: #c17d31;
+}
+
+/*Toggle*/
+
+#extension_popup .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+#extension_popup .switch input {
+    display: none;
+}
+
+#extension_popup .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+#extension_popup .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+#extension_popup input:checked + .slider {
+    background: #f89406;
+}
+
+#extension_popup input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+#extension_popup .slider.round {
+    border-radius: 34px;
+}
