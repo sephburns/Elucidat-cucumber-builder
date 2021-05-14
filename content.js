@@ -2,8 +2,8 @@ const recordedPaths = [];
 const recordedTarget = [];
 
 function getPathTo(element) {
-    if (element.id !== "") return 'id("' + element.id + '")';
-    if (element === document.body) return element.tagName;
+    if (element.id !== "") return `//*[@id="${element.id}"]`;
+    if (element === document.body) return "//body";
 
     var ix = 0;
     var siblings = element.parentNode.childNodes;
@@ -32,7 +32,6 @@ document.addEventListener("mousedown", function (event) {
                 xPath: getPathTo(event.target),
                 value: "",
             });
-            console.log("recordedPaths", recordedPaths);
         }
         var searchTimeout;
         event.target.addEventListener("keypress", (event) => {
