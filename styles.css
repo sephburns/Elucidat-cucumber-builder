@@ -22,8 +22,8 @@
     font-size: 12px;
 }
 
-*[class*="cucumber_selected"] {
-    outline: 3px solid red !important;
+.cucumber_selected {
+    outline: 3px solid #00cde6 !important;
 }
 
 #extension_popup button {

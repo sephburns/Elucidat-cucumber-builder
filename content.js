@@ -131,16 +131,12 @@ document.addEventListener(
 
 document.addEventListener("mouseover", function (event) {
     const tagName = getTagName(event);
-    const tagString = `cucumber_selected_${tagName}`;
     if (isAllowedTag(tagName)) {
         previousSelectedItem &&
-            document
-                .getElementsByClassName(previousSelectedItem)[0]
-                .classList.remove(previousSelectedItem);
-        event.target.classList.add(tagString);
-        previousSelectedItem = tagString;
+            previousSelectedItem.classList.remove("cucumber_selected");
+        event.target.classList.add("cucumber_selected");
+        previousSelectedItem = event.target;
         previewBox = document.getElementById("cucumber-preview-box");
         previewBox.innerText = tagName;
-        previewBox.style.backgroundColor = getTagColor(tagName);
     }
 });
