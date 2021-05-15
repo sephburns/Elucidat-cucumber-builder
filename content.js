@@ -8,6 +8,13 @@ const playConfirmation = () => {
     myAudio.play();
 };
 
+fetch(chrome.runtime.getURL("/template.html"))
+    .then((r) => r.text())
+    .then((html) => {
+        document.body.insertAdjacentHTML("beforebegin", html);
+        // not using innerHTML as it would break js event listeners of the page
+    });
+
 function getPathTo(element) {
     if (element.id !== "") return `//*[@id="${element.id}"]`;
     if (element === document.body) return "//body";
@@ -29,21 +36,31 @@ function getPathTo(element) {
     }
 }
 
-const isAllowedTag = (tag) => {
-    const allowedTags = [
-        "div",
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "button",
-        "input",
-        "a",
-        "p",
-    ];
-    return allowedTags.indexOf(tag) !== -1;
+const tagTypes = [
+    { tagName: "div" },
+    { tagName: "h1" },
+    { tagName: "h2" },
+    { tagName: "h3" },
+    { tagName: "h4" },
+    { tagName: "h5" },
+    { tagName: "h6" },
+    { tagName: "button" },
+    { tagName: "input" },
+    { tagName: "a" },
+    { tagName: "p" },
+    { tagName: "i" },
+    { tagName: "svg" },
+];
+
+const isAllowedTag = (queryTag) => {
+    const allowedTags = tagTypes.map((tag) => {
+        return tag.tagName;
+    });
+    return allowedTags.indexOf(queryTag) !== -1;
+};
+
+const getTagName = (event) => {
+    return event.path[0].tagName.toLowerCase();
 };
 
 function Path(eventType, target, xPath, value, tagName) {
@@ -53,10 +70,6 @@ function Path(eventType, target, xPath, value, tagName) {
     this.value = value;
     this.tagName = tagName;
 }
-
-const getTagName = (event) => {
-    return event.path[0].tagName.toLowerCase();
-};
 
 function debounce(func, wait, immediate) {
     var timeout;
@@ -126,5 +139,8 @@ document.addEventListener("mouseover", function (event) {
                 .classList.remove(previousSelectedItem);
         event.target.classList.add(tagString);
         previousSelectedItem = tagString;
+        previewBox = document.getElementById("cucumber-preview-box");
+        previewBox.innerText = tagName;
+        previewBox.style.backgroundColor = getTagColor(tagName);
     }
 });

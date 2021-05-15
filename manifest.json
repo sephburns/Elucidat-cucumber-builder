@@ -34,7 +34,7 @@
     ],
     "web_accessible_resources": [
         {
-            "resources": ["audio/*"],
+            "resources": ["audio/*", "/template.html"],
             "matches": [
                 "https://app.elucidat.com/*",
                 "https://preview.elucidat.com/*"
