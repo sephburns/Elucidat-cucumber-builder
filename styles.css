@@ -5,7 +5,7 @@
     padding: 4px !important;
     z-index: 2147483647 !important;
     font-size: 14px !important;
-    font-family: Arial, Helvetica, sans-serif !important;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600 !important;
     color: #000;
     height: 40px !important;
@@ -26,7 +26,7 @@
 }
 
 .cucumber_selected_div::after {
-    content: "DIV" !important;
+    content: "div" !important;
     background: red !important;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .cucumber_selected_h1::after {
-    content: "H1" !important;
+    content: "h1" !important;
     background: yellow !important;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .cucumber_selected_h2::after {
-    content: "H2" !important;
+    content: "h2" !important;
     background: pink !important;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .cucumber_selected_h3::after {
-    content: "H3" !important;
+    content: "h3" !important;
     background: green !important;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .cucumber_selected_h4::after {
-    content: "H4" !important;
+    content: "h4" !important;
     background: orange !important;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .cucumber_selected_h5::after {
-    content: "H5" !important;
+    content: "h5" !important;
     background: blue !important;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .cucumber_selected_h6::after {
-    content: "H6" !important;
+    content: "h6" !important;
     background: blue !important;
 }
 

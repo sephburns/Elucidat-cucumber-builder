@@ -26,29 +26,38 @@ function getPathTo(element) {
 document.addEventListener("mousedown", function (event) {
     chrome.storage.sync.get(["recording"], function (result) {
         const isRecording = result.recording;
+        const tagName = event.path[0].tagName.toLowerCase();
         if (isRecording) {
             recordedPaths.push({
                 eventType: "clicked",
                 target: event.target,
                 xPath: getPathTo(event.target),
                 value: "",
+                tagName: tagName,
             });
         }
         console.log("recordedPaths", recordedPaths);
-        var searchTimeout;
-        event.target.addEventListener("keypress", (event) => {
-            if (searchTimeout != undefined) clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(callServerScript, 2000);
-            function callServerScript() {
-                recordedPaths.push({
-                    eventType: "entered_text",
-                    target: event.target,
-                    xPath: getPathTo(event.target),
-                    value: event.target.value,
-                });
-                console.log("recordedPaths", recordedPaths);
-            }
-        });
+        if (tagName === "input") {
+            var searchTimeout;
+            event.target.addEventListener("keypress", (event) => {
+                if (isRecording) {
+                    if (searchTimeout != undefined) {
+                        clearTimeout(searchTimeout);
+                    }
+                    searchTimeout = setTimeout(callServerScript, 4000);
+                    function callServerScript() {
+                        recordedPaths.push({
+                            eventType: "entered_text",
+                            target: event.target,
+                            xPath: getPathTo(event.target),
+                            value: event.target.value,
+                            tagName: tagName,
+                        });
+                        console.log("recordedPaths", recordedPaths);
+                    }
+                }
+            });
+        }
     });
 });
 
