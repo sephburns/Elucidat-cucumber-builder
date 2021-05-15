@@ -31,5 +31,14 @@
             "css": ["styles.css"],
             "js": ["content.js"]
         }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["audio/*"],
+            "matches": [
+                "https://app.elucidat.com/*",
+                "https://preview.elucidat.com/*"
+            ]
+        }
     ]
 }

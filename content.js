@@ -2,6 +2,12 @@ const recordedPaths = [];
 const recordedTarget = [];
 let previousSelectedItem = null;
 
+const myAudio = new Audio(chrome.runtime.getURL("./audio/beep.mp3"));
+
+const playConfirmation = () => {
+    myAudio.play();
+};
+
 function getPathTo(element) {
     if (element.id !== "") return `//*[@id="${element.id}"]`;
     if (element === document.body) return "//body";
@@ -104,6 +110,7 @@ document.addEventListener(
                     tagName
                 )
             );
+            playConfirmation();
             console.log("recordedPaths", recordedPaths);
         }
     }, 3000)
