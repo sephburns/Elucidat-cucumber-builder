@@ -1,3 +1,125 @@
+*[class*="cucumber_selected"]::after {
+    top: 0 !important;
+    left: 0 !important;
+    position: fixed !important;
+    padding: 4px !important;
+    z-index: 2147483647 !important;
+    font-size: 14px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: 600 !important;
+    color: #000;
+    height: 40px !important;
+    width: 100% !important;
+    text-align: center !important;
+    visibility: visible !important;
+    display: inline-block !important;
+    line-height: 2.5 !important;
+    transition: none !important;
+    vertical-align: middle;
+    border-bottom-right-radius: 4px;
+    flex-shrink: initial !important;
+    opacity: 1 !important;
+}
+
+.cucumber_selected_div {
+    outline: 3px solid red !important;
+}
+
+.cucumber_selected_div::after {
+    content: "DIV" !important;
+    background: red !important;
+}
+
+.cucumber_selected_h1 {
+    outline: 3px solid yellow !important;
+}
+
+.cucumber_selected_h1::after {
+    content: "H1" !important;
+    background: yellow !important;
+}
+
+.cucumber_selected_h2 {
+    outline: 3px solid pink !important;
+}
+
+.cucumber_selected_h2::after {
+    content: "H2" !important;
+    background: pink !important;
+}
+
+.cucumber_selected_h3 {
+    outline: 3px solid green !important;
+}
+
+.cucumber_selected_h3::after {
+    content: "H3" !important;
+    background: green !important;
+}
+
+.cucumber_selected_h4 {
+    outline: 3px solid orange !important;
+}
+
+.cucumber_selected_h4::after {
+    content: "H4" !important;
+    background: orange !important;
+}
+
+.cucumber_selected_h5 {
+    outline: 3px solid blue !important;
+}
+
+.cucumber_selected_h5::after {
+    content: "H5" !important;
+    background: blue !important;
+}
+
+.cucumber_selected_h6 {
+    outline: 3px solid purple !important;
+}
+
+.cucumber_selected_h6::after {
+    content: "H6" !important;
+    background: blue !important;
+}
+
+.cucumber_selected_input {
+    outline: 3px solid turquoise;
+}
+
+.cucumber_selected_input::after {
+    content: "input" !important;
+    background: turquoise !important;
+}
+
+.cucumber_selected_button {
+    outline: 3px solid gold !important;
+}
+
+.cucumber_selected_button::after {
+    content: "button" !important;
+    background: gold !important;
+}
+
+.cucumber_selected_a {
+    outline: 3px solid plum !important;
+}
+
+.cucumber_selected_a::after {
+    content: "a" !important;
+    background: plum !important;
+}
+
+.cucumber_selected_p {
+    outline: 3px solid lightblue !important;
+}
+
+.cucumber_selected_p::after {
+    content: "p" !important;
+    background: lightblue !important;
+}
+
 #extension_popup button {
     text-align: center;
     background: #f89406;

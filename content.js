@@ -1,5 +1,6 @@
 const recordedPaths = [];
 const recordedTarget = [];
+let previousSelectedItem = null;
 
 function getPathTo(element) {
     if (element.id !== "") return `//*[@id="${element.id}"]`;
@@ -33,6 +34,7 @@ document.addEventListener("mousedown", function (event) {
                 value: "",
             });
         }
+        console.log("recordedPaths", recordedPaths);
         var searchTimeout;
         event.target.addEventListener("keypress", (event) => {
             if (searchTimeout != undefined) clearTimeout(searchTimeout);
@@ -48,4 +50,34 @@ document.addEventListener("mousedown", function (event) {
             }
         });
     });
+});
+
+const isAllowedTag = (tag) => {
+    const allowedTags = [
+        "div",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "button",
+        "input",
+        "a",
+        "p",
+    ];
+    return allowedTags.indexOf(tag) !== -1;
+};
+
+document.addEventListener("mouseover", function (event) {
+    const tagName = event.path[0].tagName.toLowerCase();
+    const tagString = `cucumber_selected_${tagName}`;
+    if (isAllowedTag(tagName)) {
+        previousSelectedItem &&
+            document
+                .getElementsByClassName(previousSelectedItem)[0]
+                .classList.remove(previousSelectedItem);
+        event.target.classList.add(tagString);
+        previousSelectedItem = tagString;
+    }
 });
