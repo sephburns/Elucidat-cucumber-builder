@@ -28,6 +28,13 @@ document.addEventListener("mouseover", function (event) {
     }
 });
 
+// //TEMPORARY CLEAR IMPORT TO REMOVE!!!!
+// setTimeout(() => {
+//     chrome.storage.sync.set({
+//         recordedPaths: [],
+//     });
+// }, [500]);
+
 document.addEventListener("mousedown", function (event) {
     let mainTarget = event.target;
     let tagName = getTagName(event);
@@ -35,14 +42,6 @@ document.addEventListener("mousedown", function (event) {
         mainTarget = closest(event.target, "div");
         tagName = "div";
     }
-
-    // //TEMPORARY CLEAR IMPORT TO REMOVE!!!!
-    // setTimeout(() => {
-
-    //     chrome.storage.sync.set({
-    //         recordedPaths: [],
-    //     });
-    // }, [500]);
 
     if (!recordingInput) {
         chrome.storage.sync.get(["recording"], function (result) {

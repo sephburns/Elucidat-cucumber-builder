@@ -11,14 +11,6 @@ const isAllowedTag = (queryTag) => {
     return allowedTags.indexOf(queryTag) !== -1;
 };
 
-function Path(eventType, target, xPath, value, tagName) {
-    this.eventType = eventType;
-    this.target = target;
-    this.xPath = xPath;
-    this.value = value;
-    this.tagName = tagName;
-}
-
 const getPathTo = (element) => {
     if (element.id !== "") return `//*[@id="${element.id}"]`;
     if (element === document.body) return "//body";
@@ -92,10 +84,17 @@ const closest = (el, selector) => {
     return null;
 };
 
+function Path(eventType, target, xPath, value, tagName) {
+    this.eventType = eventType;
+    this.target = target;
+    this.xPath = xPath;
+    this.value = value;
+    this.tagName = tagName;
+}
+
 const saveToLocal = (action, mainTarget, targetPath, targetValue, tagName) => {
     chrome.storage.sync.get(["recordedPaths"], function (result) {
         const previousPaths = result.recordedPaths;
-        console.log("previousPaths", previousPaths);
         const newPaths = [
             ...previousPaths,
             new Path(action, mainTarget, targetPath, targetValue, tagName),

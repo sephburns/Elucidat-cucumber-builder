@@ -1,20 +1,30 @@
 document.addEventListener("click", function (e) {
     if (e.target && e.target.id == "replay") {
         console.log("click");
-        loopThroughSplittedText();
+        loopThroughRecordedPaths();
     }
 });
 
-function loopThroughSplittedText() {
-    for (var i = 0; i < recordedPaths.length; i++) {
-        // for each iteration console.log a word
-        // and make a pause after it
-        (function (i) {
-            setTimeout(function () {
-                console.log("recordedPaths[i].target", recordedPaths[i].target);
-                recordedPaths[i].target.click();
-                console.log(recordedPaths[i]);
-            }, 5000 * i);
-        })(i);
-    }
-}
+const findDomNodeFromXpath = (xPath) => {
+    var xPathRes = document.evaluate(
+        xPath,
+        document,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+    );
+    return xPathRes.singleNodeValue;
+};
+
+const loopThroughRecordedPaths = () => {
+    chrome.storage.sync.get(["recordedPaths"], function (result) {
+        console.log("recordedPaths[i]", result.recordedPaths[i]);
+        for (var i = 0; i < result.recordedPaths.length; i++) {
+            (function (i) {
+                setTimeout(function () {
+                    findDomNodeFromXpath(result.recordedPaths[i].xPath).click();
+                }, 5000 * i);
+            })(i);
+        }
+    });
+};
