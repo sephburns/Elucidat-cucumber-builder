@@ -1,9 +1,3 @@
-document.addEventListener("click", function (e) {
-    if (e.target && e.target.id == "replay") {
-        loopThroughRecordedPaths();
-    }
-});
-
 const findDomNodeFromXpath = (xPath) => {
     var xPathRes = document.evaluate(
         xPath,

@@ -109,9 +109,3 @@ const clearLocalPaths = () => {
         recordedPaths: [],
     });
 };
-
-document.addEventListener("click", function (e) {
-    if (e.target && e.target.id == "clearLocalPaths") {
-        clearLocalPaths();
-    }
-});
