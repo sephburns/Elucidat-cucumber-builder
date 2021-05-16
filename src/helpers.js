@@ -1,3 +1,9 @@
+const myAudio = new Audio(chrome.runtime.getURL("../audio/beep.mp3"));
+
+const playConfirmationSound = () => {
+    myAudio.play();
+};
+
 const isAllowedTag = (queryTag) => {
     const allowedTags = tagTypes.map((tag) => {
         return tag.tagName;

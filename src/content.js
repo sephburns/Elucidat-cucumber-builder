@@ -27,6 +27,7 @@ document.addEventListener("mousedown", function (event) {
                     )
                 );
             }
+            playConfirmationSound();
             console.log("recordedPaths", recordedPaths);
             if (tagName === "input") {
                 previewBox.innerText = "...recording input";
