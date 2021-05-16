@@ -17,8 +17,9 @@ fetch(chrome.runtime.getURL("/preview.html"))
 document.addEventListener("mouseover", function (event) {
     const tagName = getTagName(event);
     if (isAllowedTag(tagName) && !recordingInput) {
-        previousSelectedItem &&
+        if (previousSelectedItem) {
             previousSelectedItem.classList.remove("cucumber_selected");
+        }
         event.target.classList.add("cucumber_selected");
         previousSelectedItem = event.target;
         if (previewBox) {
@@ -28,20 +29,21 @@ document.addEventListener("mouseover", function (event) {
 });
 
 document.addEventListener("mousedown", function (event) {
-    const tagName = getTagName(event);
-    // if (!isAllowedTag(tagName)) {
-    //     console.log(closest(event.target, "div"));
-    // }
-    if (isAllowedTag(tagName) && !recordingInput) {
+    let mainTarget = event.target;
+    let tagName = getTagName(event);
+    if (!isAllowedTag(tagName)) {
+        mainTarget = closest(event.target, "div");
+        tagName = "div";
+    }
+    if (!recordingInput) {
         chrome.storage.sync.get(["recording"], function (result) {
             const isRecording = result.recording;
-            const tagName = event.path[0].tagName.toLowerCase();
             if (isRecording) {
                 recordedPaths.push(
                     new Path(
                         "clicked",
-                        event.target,
-                        getPathTo(event.target),
+                        mainTarget,
+                        getPathTo(mainTarget),
                         "",
                         tagName
                     )
