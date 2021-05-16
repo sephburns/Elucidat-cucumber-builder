@@ -3,6 +3,7 @@ const recordedTarget = [];
 let recordingInput = false;
 let previousSelectedItem = null;
 let previewBox;
+let isReplaying = false;
 
 // Inject the template HTML at the top of the page
 fetch(chrome.runtime.getURL("/preview.html"))
@@ -14,9 +15,9 @@ fetch(chrome.runtime.getURL("/preview.html"))
         previewBox = document.getElementById("cucumber-preview-box");
     });
 
-document.addEventListener("mouseover", function (event) {
+const handleMouseOver = (event) => {
     const tagName = getTagName(event);
-    if (isAllowedTag(tagName) && !recordingInput) {
+    if (isAllowedTag(tagName) && !recordingInput && !isReplaying) {
         if (previousSelectedItem) {
             previousSelectedItem.classList.remove("cucumber_selected");
         }
@@ -26,17 +27,16 @@ document.addEventListener("mouseover", function (event) {
             previewBox.innerText = tagName;
         }
     }
-});
+};
 
-document.addEventListener("mousedown", function (event) {
+const handleMouseDown = (event) => {
     let mainTarget = event.target;
     let tagName = getTagName(event);
     if (!isAllowedTag(tagName)) {
         mainTarget = closest(event.target, "div");
         tagName = "div";
     }
-
-    if (!recordingInput) {
+    if (!recordingInput && !isReplaying) {
         chrome.storage.sync.get(["recording"], function (result) {
             const isRecording = result.recording;
             if (isRecording) {
@@ -49,26 +49,23 @@ document.addEventListener("mousedown", function (event) {
             }
         });
     }
-});
+};
 
-document.addEventListener(
-    "keypress",
-    debounce((event) => {
-        chrome.storage.sync.get(["recording"], (result) => {
-            const isRecording = result.recording;
-            const tagName = getTagName(event);
-            if (tagName === "input" && isRecording) {
-                saveToLocal(
-                    "entered_text",
-                    getPathTo(event.target),
-                    event.target.value,
-                    tagName
-                );
-                playConfirmationSound();
-                console.log("recordedPaths", recordedPaths);
-                previewBox.innerText = "saved!";
-                recordingInput = false;
-            }
-        });
-    }, 2000)
-);
+const handleKeyPress = debounce((event) => {
+    chrome.storage.sync.get(["recording"], (result) => {
+        const isRecording = result.recording;
+        const tagName = getTagName(event);
+        if (tagName === "input" && isRecording) {
+            saveToLocal(
+                "entered_text",
+                getPathTo(event.target),
+                event.target.value,
+                tagName
+            );
+            playConfirmationSound();
+            console.log("recordedPaths", recordedPaths);
+            previewBox.innerText = "saved!";
+            recordingInput = false;
+        }
+    });
+}, 2000);

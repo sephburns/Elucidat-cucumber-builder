@@ -98,6 +98,7 @@ const saveToLocal = (action, xPath, targetValue, tagName) => {
             ...previousPaths,
             new Path(action, xPath, targetValue, tagName),
         ];
+        console.log("Save to local", newPaths);
         chrome.storage.sync.set({
             recordedPaths: newPaths,
         });
