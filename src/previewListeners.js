@@ -6,6 +6,6 @@ document.addEventListener("click", function (e) {
 
 document.addEventListener("click", function (e) {
     if (e.target && e.target.id == "replay") {
-        loopThroughRecordedPaths();
+        handleReplay();
     }
 });

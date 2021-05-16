@@ -9,20 +9,20 @@ const findDomNodeFromXpath = (xPath) => {
     return xPathRes.singleNodeValue;
 };
 
-const loopThroughRecordedPaths = () => {
+const handleReplay = () => {
     chrome.storage.sync.get(["recordedPaths"], function (result) {
-        const recordedPaths = result.recordedPaths;
-        const handleLoop = () => {
-            for (var i = 0; i < recordedPaths.length; i++) {
-                ((i) => {
-                    setTimeout(function () {
-                        findDomNodeFromXpath(
-                            result.recordedPaths[i].xPath
-                        ).click();
-                    }, 1000 * i);
-                })(i);
-            }
-        };
-        handleLoop(recordedPaths);
+        loopThroughRecordedPaths(result.recordedPaths);
     });
 };
+
+function loopThroughRecordedPaths(paths) {
+    for (var i = 0; i < paths.length; i++) {
+        // for each iteration console.log a word
+        // and make a pause after it
+        (function (i) {
+            setTimeout(function () {
+                console.log(paths[i]);
+            }, 1000 * i);
+        })(i);
+    }
+}
