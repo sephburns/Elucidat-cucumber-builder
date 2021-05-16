@@ -29,12 +29,12 @@
                 "https://preview.elucidat.com/*"
             ],
             "css": ["styles.css"],
-            "js": ["content.js"]
+            "js": ["/src/helpers.js", "/src/tagTypes.js", "/src/content.js"]
         }
     ],
     "web_accessible_resources": [
         {
-            "resources": ["audio/*", "/template.html"],
+            "resources": ["/preview.html"],
             "matches": [
                 "https://app.elucidat.com/*",
                 "https://preview.elucidat.com/*"
