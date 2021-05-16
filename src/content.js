@@ -26,12 +26,12 @@ document.addEventListener("mousedown", function (event) {
                         tagName
                     )
                 );
-            }
-            playConfirmationSound();
-            console.log("recordedPaths", recordedPaths);
-            if (tagName === "input") {
-                previewBox.innerText = "...recording input";
-                recordingInput = true;
+                playConfirmationSound();
+                console.log("recordedPaths", recordedPaths);
+                if (tagName === "input") {
+                    previewBox.innerText = "...recording input";
+                    recordingInput = true;
+                }
             }
         });
     }
@@ -40,20 +40,25 @@ document.addEventListener("mousedown", function (event) {
 document.addEventListener(
     "keypress",
     debounce((event) => {
-        const tagName = getTagName(event);
-        if (tagName === "input") {
-            recordedPaths.push(
-                new Path(
-                    "entered_text",
-                    event.target,
-                    getPathTo(event.target),
-                    event.target.value,
-                    tagName
-                )
-            );
-            previewBox.innerText = "saved!";
-            recordingInput = false;
-        }
+        chrome.storage.sync.get(["recording"], (result) => {
+            const isRecording = result.recording;
+            const tagName = getTagName(event);
+            if (tagName === "input" && isRecording) {
+                recordedPaths.push(
+                    new Path(
+                        "entered_text",
+                        event.target,
+                        getPathTo(event.target),
+                        event.target.value,
+                        tagName
+                    )
+                );
+                playConfirmationSound();
+                console.log("recordedPaths", recordedPaths);
+                previewBox.innerText = "saved!";
+                recordingInput = false;
+            }
+        });
     }, 2000)
 );
 
