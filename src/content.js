@@ -35,21 +35,27 @@ document.addEventListener("mousedown", function (event) {
         mainTarget = closest(event.target, "div");
         tagName = "div";
     }
+
+    // //TEMPORARY CLEAR IMPORT TO REMOVE!!!!
+    // setTimeout(() => {
+
+    //     chrome.storage.sync.set({
+    //         recordedPaths: [],
+    //     });
+    // }, [500]);
+
     if (!recordingInput) {
         chrome.storage.sync.get(["recording"], function (result) {
             const isRecording = result.recording;
             if (isRecording) {
-                recordedPaths.push(
-                    new Path(
-                        "clicked",
-                        mainTarget,
-                        getPathTo(mainTarget),
-                        "",
-                        tagName
-                    )
+                saveToLocal(
+                    "clicked",
+                    mainTarget,
+                    getPathTo(mainTarget),
+                    "",
+                    tagName
                 );
                 playConfirmationSound();
-                console.log("recordedPaths", recordedPaths);
                 if (tagName === "input") {
                     previewBox.innerText = "...recording input";
                     recordingInput = true;
@@ -66,14 +72,12 @@ document.addEventListener(
             const isRecording = result.recording;
             const tagName = getTagName(event);
             if (tagName === "input" && isRecording) {
-                recordedPaths.push(
-                    new Path(
-                        "entered_text",
-                        event.target,
-                        getPathTo(event.target),
-                        event.target.value,
-                        tagName
-                    )
+                saveToLocal(
+                    "entered_text",
+                    event.target,
+                    getPathTo(event.target),
+                    event.target.value,
+                    tagName
                 );
                 playConfirmationSound();
                 console.log("recordedPaths", recordedPaths);

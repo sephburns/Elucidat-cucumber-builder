@@ -91,3 +91,17 @@ const closest = (el, selector) => {
 
     return null;
 };
+
+const saveToLocal = (action, mainTarget, targetPath, targetValue, tagName) => {
+    chrome.storage.sync.get(["recordedPaths"], function (result) {
+        const previousPaths = result.recordedPaths;
+        console.log("previousPaths", previousPaths);
+        const newPaths = [
+            ...previousPaths,
+            new Path(action, mainTarget, targetPath, targetValue, tagName),
+        ];
+        chrome.storage.sync.set({
+            recordedPaths: newPaths,
+        });
+    });
+};
