@@ -17,10 +17,10 @@ const handleReplay = () => {
     });
 };
 
-function loopThroughRecordedPaths(paths) {
+const loopThroughRecordedPaths = (paths) => {
     for (var i = 0; i < paths.length; i++) {
-        (function (i) {
-            setTimeout(function () {
+        ((i) => {
+            setTimeout(() => {
                 findDomNodeFromXpath(paths[i].xPath).click();
                 // If we're at the end of replay turn isReplaying to false so we can capture more paths
                 if (i + 1 === paths.length) {
@@ -29,4 +29,4 @@ function loopThroughRecordedPaths(paths) {
             }, 5000 * i);
         })(i);
     }
-}
+};

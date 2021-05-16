@@ -1,4 +1,9 @@
-const uiElementIds = ["replay", "clearLocalPaths"];
+const uiElementIds = [
+    "replay",
+    "clearLocalPaths",
+    "cucumber-preview-box",
+    "cucumber-preview-holder",
+];
 
 const isUiElement = (element) => {
     return uiElementIds.indexOf(element) !== -1;
@@ -17,7 +22,9 @@ document.addEventListener("click", function (e) {
 });
 
 document.addEventListener("mouseover", function (event) {
-    handleMouseOver(event);
+    if (!isUiElement(event.target.id)) {
+        handleMouseOver(event);
+    }
 });
 
 document.addEventListener("mousedown", function (event) {
