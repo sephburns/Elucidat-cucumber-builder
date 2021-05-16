@@ -1,5 +1,6 @@
 const recordedPaths = [];
 const recordedTarget = [];
+let recordingInput = false;
 let previousSelectedItem = null;
 
 const myAudio = new Audio(chrome.runtime.getURL("./audio/beep.mp3"));
@@ -104,7 +105,10 @@ document.addEventListener("mousedown", function (event) {
                     )
                 );
             }
-            console.log("recordedPaths", recordedPaths);
+            if (tagName === "input") {
+                previewBox.innerText = "...recording input";
+                recordingInput = true;
+            }
         });
     }
 });
@@ -123,15 +127,15 @@ document.addEventListener(
                     tagName
                 )
             );
-            playConfirmation();
-            console.log("recordedPaths", recordedPaths);
+            previewBox.innerText = "saved!";
+            recordingInput = false;
         }
     }, 3000)
 );
 
 document.addEventListener("mouseover", function (event) {
     const tagName = getTagName(event);
-    if (isAllowedTag(tagName)) {
+    if (isAllowedTag(tagName) && !recordingInput) {
         previousSelectedItem &&
             previousSelectedItem.classList.remove("cucumber_selected");
         event.target.classList.add("cucumber_selected");
