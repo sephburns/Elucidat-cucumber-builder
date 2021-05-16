@@ -29,7 +29,12 @@
                 "https://preview.elucidat.com/*"
             ],
             "css": ["styles.css"],
-            "js": ["/src/helpers.js", "/src/tagTypes.js", "/src/content.js"]
+            "js": [
+                "/src/helpers.js",
+                "/src/tagTypes.js",
+                "/src/content.js",
+                "/src/replay.js"
+            ]
         }
     ],
     "web_accessible_resources": [

@@ -12,4 +12,6 @@ const tagTypes = [
     { tagName: "p" },
     { tagName: "i" },
     { tagName: "svg" },
+    { tagName: "span" },
+    { tagName: "small" },
 ];
