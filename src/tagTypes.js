@@ -14,4 +14,5 @@ const tagTypes = [
     { tagName: "svg" },
     { tagName: "span" },
     { tagName: "small" },
+    { tagName: "select" },
 ];

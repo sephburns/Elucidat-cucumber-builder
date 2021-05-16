@@ -84,23 +84,34 @@ const closest = (el, selector) => {
     return null;
 };
 
-function Path(eventType, target, xPath, value, tagName) {
+function Path(eventType, xPath, value, tagName) {
     this.eventType = eventType;
-    this.target = target;
     this.xPath = xPath;
     this.value = value;
     this.tagName = tagName;
 }
 
-const saveToLocal = (action, mainTarget, targetPath, targetValue, tagName) => {
+const saveToLocal = (action, xPath, targetValue, tagName) => {
     chrome.storage.sync.get(["recordedPaths"], function (result) {
         const previousPaths = result.recordedPaths;
         const newPaths = [
             ...previousPaths,
-            new Path(action, mainTarget, targetPath, targetValue, tagName),
+            new Path(action, xPath, targetValue, tagName),
         ];
         chrome.storage.sync.set({
             recordedPaths: newPaths,
         });
     });
 };
+
+const clearLocalPaths = () => {
+    chrome.storage.sync.set({
+        recordedPaths: [],
+    });
+};
+
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.id == "clearLocalPaths") {
+        clearLocalPaths();
+    }
+});

@@ -28,13 +28,6 @@ document.addEventListener("mouseover", function (event) {
     }
 });
 
-// //TEMPORARY CLEAR IMPORT TO REMOVE!!!!
-// setTimeout(() => {
-//     chrome.storage.sync.set({
-//         recordedPaths: [],
-//     });
-// }, [500]);
-
 document.addEventListener("mousedown", function (event) {
     let mainTarget = event.target;
     let tagName = getTagName(event);
@@ -47,13 +40,7 @@ document.addEventListener("mousedown", function (event) {
         chrome.storage.sync.get(["recording"], function (result) {
             const isRecording = result.recording;
             if (isRecording) {
-                saveToLocal(
-                    "clicked",
-                    mainTarget,
-                    getPathTo(mainTarget),
-                    "",
-                    tagName
-                );
+                saveToLocal("clicked", getPathTo(mainTarget), "", tagName);
                 playConfirmationSound();
                 if (tagName === "input") {
                     previewBox.innerText = "...recording input";
@@ -73,7 +60,6 @@ document.addEventListener(
             if (tagName === "input" && isRecording) {
                 saveToLocal(
                     "entered_text",
-                    event.target,
                     getPathTo(event.target),
                     event.target.value,
                     tagName
