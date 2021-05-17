@@ -14,11 +14,10 @@ const isAllowedTag = (queryTag) => {
 const getPathTo = (element) => {
     if (element.id !== "") return `//*[@id="${element.id}"]`;
     if (element === document.body) return "//body";
-
-    var ix = 0;
-    var siblings = element.parentNode.childNodes;
-    for (var i = 0; i < siblings.length; i++) {
-        var sibling = siblings[i];
+    let ix = 0;
+    const siblings = element.parentNode.childNodes;
+    for (let i = 0; i < siblings.length; i++) {
+        const sibling = siblings[i];
         if (sibling === element)
             return (
                 getPathTo(element.parentNode) +
@@ -37,15 +36,15 @@ const getTagName = (event) => {
 };
 
 const debounce = (func, wait, immediate) => {
-    var timeout;
-    return function () {
-        var context = this,
+    let timeout;
+    return () => {
+        const context = this,
             args = arguments;
-        var later = function () {
+        const later = () => {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };
-        var callNow = immediate && !timeout;
+        const callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
@@ -53,8 +52,8 @@ const debounce = (func, wait, immediate) => {
 };
 
 const closest = (el, selector) => {
-    var matchesFn;
-
+    console.log("el", el);
+    let matchesFn;
     // find vendor prefix
     [
         "matches",
@@ -62,16 +61,14 @@ const closest = (el, selector) => {
         "mozMatchesSelector",
         "msMatchesSelector",
         "oMatchesSelector",
-    ].some(function (fn) {
+    ].some((fn) => {
         if (typeof document.body[fn] == "function") {
             matchesFn = fn;
             return true;
         }
         return false;
     });
-
-    var parent;
-
+    let parent;
     // traverse parents
     while (el) {
         parent = el.parentElement;
@@ -80,7 +77,6 @@ const closest = (el, selector) => {
         }
         el = parent;
     }
-
     return null;
 };
 
@@ -92,7 +88,7 @@ function Path(eventType, xPath, value, tagName) {
 }
 
 const saveToLocal = (action, xPath, targetValue, tagName) => {
-    chrome.storage.sync.get(["recordedPaths"], function (result) {
+    chrome.storage.sync.get(["recordedPaths"], (result) => {
         const previousPaths = result.recordedPaths;
         const newPaths = [
             ...previousPaths,
