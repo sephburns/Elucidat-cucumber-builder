@@ -32,13 +32,12 @@ const handleMouseOver = (event) => {
 const handleMouseDown = (event) => {
     let mainTarget = event.target;
     let tagName = getTagName(event);
-    // On the off chance you are able to click a banned tag we will bubble up to closest div
     if (!isAllowedTag(tagName)) {
         mainTarget = closest(event.target, "div");
         tagName = "div";
     }
     if (!recordingInput && !isReplaying) {
-        chrome.storage.sync.get(["recording"], (result) => {
+        chrome.storage.sync.get(["recording"], function (result) {
             const isRecording = result.recording;
             if (isRecording) {
                 saveToLocal("clicked", getPathTo(mainTarget), "", tagName);

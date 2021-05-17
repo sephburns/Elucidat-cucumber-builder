@@ -1,5 +1,5 @@
 const findDomNodeFromXpath = (xPath) => {
-    const xPathRes = document.evaluate(
+    var xPathRes = document.evaluate(
         xPath,
         document,
         null,
@@ -10,7 +10,7 @@ const findDomNodeFromXpath = (xPath) => {
 };
 
 const handleReplay = () => {
-    chrome.storage.sync.get(["recordedPaths"], (result) => {
+    chrome.storage.sync.get(["recordedPaths"], function (result) {
         // If we're at the start of replay turn isReplaying to true so we don't accidentally capture more paths
         isReplaying = true;
         loopThroughRecordedPaths(result.recordedPaths);
@@ -18,7 +18,7 @@ const handleReplay = () => {
 };
 
 const loopThroughRecordedPaths = (paths) => {
-    for (let i = 0; i < paths.length; i++) {
+    for (var i = 0; i < paths.length; i++) {
         ((i) => {
             setTimeout(() => {
                 findDomNodeFromXpath(paths[i].xPath).click();

@@ -9,30 +9,30 @@ const isUiElement = (element) => {
     return uiElementIds.indexOf(element) !== -1;
 };
 
-document.addEventListener("click", (event) => {
-    if (event.target && event.target.id == "clearLocalPaths") {
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.id == "clearLocalPaths") {
         clearLocalPaths();
     }
 });
 
-document.addEventListener("click", (event) => {
-    if (event.target && event.target.id === "replay") {
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "replay") {
         handleReplay();
     }
 });
 
-document.addEventListener("mouseover", (event) => {
+document.addEventListener("mouseover", function (event) {
     if (!isUiElement(event.target.id)) {
         handleMouseOver(event);
     }
 });
 
-document.addEventListener("mousedown", (event) => {
+document.addEventListener("mousedown", function (event) {
     if (!isUiElement(event.target.id)) {
         handleMouseDown(event);
     }
 });
 
-document.addEventListener("keypress", (event) => {
+document.addEventListener("keypress", function (event) {
     handleKeyPress(event);
 });
