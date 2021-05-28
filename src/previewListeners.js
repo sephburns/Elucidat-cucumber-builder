@@ -13,9 +13,6 @@ document.addEventListener("click", (event) => {
     if (event.target && event.target.id == "clearLocalPaths") {
         clearLocalPaths();
     }
-});
-
-document.addEventListener("click", (event) => {
     if (event.target && event.target.id === "replay") {
         handleReplay();
     }
