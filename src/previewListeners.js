@@ -1,9 +1,13 @@
-const uiElementIds = [
-    "replay",
-    "clearLocalPaths",
-    "cucumber-preview-box",
-    "cucumber-preview-holder",
-];
+const uiElementIds = ["cucumber-preview-holder"];
+
+const pushUiElementIds = () => {
+    var everyChild = document.querySelectorAll("#cucumber-preview-holder *");
+    for (var i = 0; i < everyChild.length; i++) {
+        if (everyChild[i].id) {
+            uiElementIds.push(everyChild[i].id);
+        }
+    }
+};
 
 const isUiElement = (element) => {
     return uiElementIds.indexOf(element) !== -1;

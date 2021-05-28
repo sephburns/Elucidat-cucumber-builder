@@ -13,6 +13,7 @@ fetch(chrome.runtime.getURL("/preview.html"))
     })
     .then(() => {
         previewBox = document.getElementById("cucumber-preview-box");
+        pushUiElementIds();
     });
 
 const handleMouseOver = (event) => {
