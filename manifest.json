@@ -40,7 +40,7 @@
     ],
     "web_accessible_resources": [
         {
-            "resources": ["/preview.html", "audio/*"],
+            "resources": ["/preview.html"],
             "matches": [
                 "https://app.elucidat.com/*",
                 "https://preview.elucidat.com/*"

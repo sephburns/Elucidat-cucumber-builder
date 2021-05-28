@@ -41,7 +41,6 @@ const handleMouseDown = (event) => {
             const isRecording = result.recording;
             if (isRecording) {
                 saveToLocal("clicked", getPathTo(mainTarget), "", tagName);
-                playConfirmationSound();
                 if (tagName === "input") {
                     previewBox.innerText = "...recording input";
                     recordingInput = true;
@@ -62,7 +61,6 @@ const handleKeyPress = debounce((event) => {
                 event.target.value,
                 tagName
             );
-            playConfirmationSound();
             console.log("recordedPaths", recordedPaths);
             previewBox.innerText = "saved!";
             recordingInput = false;
