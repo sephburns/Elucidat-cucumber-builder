@@ -30,13 +30,15 @@
             ],
             "css": ["styles.css"],
             "js": [
+                "/src/backend.js",
                 "/src/helpers.js",
                 "/src/tagTypes.js",
                 "/src/content.js",
                 "/src/replay.js",
                 "/src/previewListeners.js",
-                "/src/backend.js"
-            ]
+                "/src/init.js"
+            ],
+            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [

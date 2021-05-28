@@ -2,7 +2,11 @@ const API_BASE_URL = 'http://localhost:3000';
 
 const getTests = () => {
     return makeRequest(
-        () => fetch(`${API_BASE_URL}/tests`)
+        () => fetch(`${API_BASE_URL}/tests`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
     );
 }
 
@@ -24,12 +28,13 @@ const createTest = ({
     );
 }
 
-const deleteTest = ({
-    id,
+const updateTest = (id, {
+    name,
+    body,
 }) => {
     return makeRequest(
-        () => fetch(`${API_BASE_URL}/tests/`, {
-            method: 'DELETE',
+        () => fetch(`${API_BASE_URL}/tests/${id}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -37,6 +42,27 @@ const deleteTest = ({
                 name,
                 body
             })
+        })
+    );
+}
+
+const getTest = id => {
+    return makeRequest(
+        () => fetch(`${API_BASE_URL}/tests/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    );
+}
+
+const deleteTest = id => {
+    return makeRequest(
+        () => fetch(`${API_BASE_URL}/tests/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
     );
 }
@@ -49,9 +75,7 @@ const makeRequest = async request => {
             throw new Error(res.statusText ?? 'Request failed');
         }
 
-        alert('request completed successfully');
-
-        return res;
+        return res.json();
     } catch (e) {
         alert(e);
     }

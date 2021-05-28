@@ -112,3 +112,11 @@ const handleCommit = () => {
         body: 'toast'
     }));
 };
+
+const handleChange = () => {
+    console.log('commit', API_BASE_URL);
+    console.log(createTest({
+        name: 'beans',
+        body: 'toast'
+    }));
+};

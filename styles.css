@@ -12,6 +12,14 @@
     border-radius: 4px;
 }
 
+#tests-select {
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
 .cucumber-preview-box {
     margin: 8px;
     vertical-align: middle;
