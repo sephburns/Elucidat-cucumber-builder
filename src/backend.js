@@ -7,7 +7,15 @@ const getTests = () => {
                 'Content-Type': 'application/json',
             },
         })
-    );
+    ).then(({
+        data: tests
+    }) => tests.map(({
+        body,
+        ...rest
+    }) => ({
+        body: JSON.parse(body),
+        ...rest
+    })));
 }
 
 const createTest = ({
@@ -53,7 +61,15 @@ const getTest = id => {
                 'Content-Type': 'application/json',
             },
         })
-    );
+    ).then(({
+        data: {
+            body,
+            ...rest
+        }
+    }) => ({
+        body: JSON.parse(body),
+        ...rest
+    }));
 }
 
 const deleteTest = id => {

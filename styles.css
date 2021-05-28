@@ -16,6 +16,10 @@
     font-size: 14px;
 }
 
+#current-actions {
+    font-size: 14px;
+}
+
 .hidden {
     display: none;
 }

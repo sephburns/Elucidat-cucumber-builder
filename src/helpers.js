@@ -92,10 +92,13 @@ const saveToLocal = (action, xPath, targetValue, tagName) => {
             ...previousPaths,
             new Path(action, xPath, targetValue, tagName),
         ];
-        console.log("Save to local", newPaths);
         chrome.storage.sync.set({
             recordedPaths: newPaths,
         });
+
+        clearCurrentActions();
+
+        addActionsToCurrentActions(newPaths.map(action => action.xPath))
     });
 };
 
@@ -103,20 +106,92 @@ const clearLocalPaths = () => {
     chrome.storage.sync.set({
         recordedPaths: [],
     });
+
+    clearCurrentActions();
 };
 
 const handleCommit = () => {
-    console.log('commit', API_BASE_URL);
-    console.log(createTest({
-        name: 'beans',
-        body: 'toast'
-    }));
+    const name = prompt('Please name the new test');
+
+    if (name) {
+        chrome.storage.sync.get(["recordedPaths"], function (result) {
+            const paths = result.recordedPaths ?? [];
+
+            createTest({
+                    name,
+                    body: JSON.stringify(paths)
+                })
+                .then(() => {
+                    alert(`Test ${name} created!`);
+                    refreshTestsSelect(true)
+                    clearLocalPaths();
+                })
+                .catch(() => {
+                    alert(`Test ${name} could not be created`);
+                })
+        });
+    } else {
+        alert('Invalid name');
+    }
 };
 
-const handleChange = () => {
-    console.log('commit', API_BASE_URL);
-    console.log(createTest({
-        name: 'beans',
-        body: 'toast'
-    }));
-};
+
+const refreshTestsSelect = (isInited = false) => {
+    getTests()
+        .then(tests => {
+            console.log(tests);
+            const container = document
+                .getElementById('tests-select-container');
+
+            const select = document
+                .getElementById('tests-select');
+
+            select.options.length = 0;
+
+            tests.forEach(test => {
+                container
+                    .classList
+                    .remove('hidden');
+
+                select.add(
+                    (() => {
+                        const option = document.createElement('option');
+
+                        option.text = test.name ?? 'NO_NAME';
+
+                        option.value = test.id;
+
+                        return option;
+                    })()
+                )
+            })
+
+            if(!isInited){
+                select
+                    .addEventListener("change", (event) => {
+                        if (event.target.value) {
+                            getTest(event.target.value)
+                                .then(test => {
+                                    clearCurrentActions();
+
+                                    addActionsToCurrentActions(test.body.map(action => action.xPath))
+                                })
+                        }
+                    });
+            }
+        })
+}
+
+const addActionToCurrentActions = action => {
+    const el = document.createElement('li');
+
+    el.appendChild(
+        document.createTextNode(action)
+    );
+
+    document.getElementById('current-actions').appendChild(el);
+}
+
+const clearCurrentActions = () => document.getElementById('current-actions').innerHTML = '';
+
+const addActionsToCurrentActions = actions => actions.forEach(action => addActionToCurrentActions(action));
