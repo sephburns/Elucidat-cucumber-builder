@@ -37,9 +37,3 @@ document
 function setRecording(bool) {
     chrome.storage.sync.set({ recording: bool });
 }
-
-function commitCode() {
-    chrome.storage.sync.get(["recording"], function (result) {
-        console.log("COMMIT", result);
-    });
-}
