@@ -16,6 +16,9 @@ document.addEventListener("click", (event) => {
     if (event.target && event.target.id === "replay") {
         handleReplay();
     }
+    if (event.target && event.target.id === "commit") {
+        handleCommit();
+    }
 });
 
 document.addEventListener("mouseover", (event) => {

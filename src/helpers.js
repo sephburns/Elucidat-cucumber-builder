@@ -87,7 +87,7 @@ function Path(eventType, xPath, value, tagName) {
 
 const saveToLocal = (action, xPath, targetValue, tagName) => {
     chrome.storage.sync.get(["recordedPaths"], function (result) {
-        const previousPaths = result.recordedPaths;
+        const previousPaths = result.recordedPaths ?? [];
         const newPaths = [
             ...previousPaths,
             new Path(action, xPath, targetValue, tagName),
@@ -103,4 +103,12 @@ const clearLocalPaths = () => {
     chrome.storage.sync.set({
         recordedPaths: [],
     });
+};
+
+const handleCommit = () => {
+    console.log('commit', API_BASE_URL);
+    console.log(createTest({
+        name: 'beans',
+        body: 'toast'
+    }));
 };

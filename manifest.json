@@ -34,7 +34,8 @@
                 "/src/tagTypes.js",
                 "/src/content.js",
                 "/src/replay.js",
-                "/src/previewListeners.js"
+                "/src/previewListeners.js",
+                "/src/backend.js"
             ]
         }
     ],
